@@ -1,4 +1,5 @@
 package lista1;
+
 import java.util.*;
 
 public class Questao09 {
@@ -7,23 +8,21 @@ public class Questao09 {
 //	verdadeiras imprima: "número não válido".
 
 	public static void main(String[] args) {
-		
-		
+
 		System.out.println("Digite o valor de A: ");
-		Scanner variavel1= new Scanner(System.in);
-		int A=variavel1.nextInt();
+		Scanner variavel1 = new Scanner(System.in);
+		int A = variavel1.nextInt();
 
 		System.out.println("Digite o valor de B: ");
-		Scanner variavel2=new Scanner(System.in);
-		int B=variavel2.nextInt();
+		Scanner variavel2 = new Scanner(System.in);
+		int B = variavel2.nextInt();
 		System.out.println("");
-		
 
-		if(A>10 && (A+B)==20) {
+		if (A > 10 && (A + B) == 20) {
 			System.out.println("A + B == 20");
-		}else
+		} else
 			System.out.println("numero não válido");
-		
+
 		variavel1.close();
 		variavel2.close();
 	}
