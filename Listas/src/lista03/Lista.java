@@ -1,7 +1,7 @@
-package lista03;
+package lista3;
 import java.util.*;
 
-public class Lista {
+public class lista {
 
 	public static int[] vetorIntAleatorio(int tam){
 		
@@ -122,15 +122,21 @@ public class Lista {
 	 }
 	 
 	 public static int[] Compactacao(int[] vet1){
-		 int[] vetor = new int[2*vet1.length];
+		 int tam = 1;
+		 for (int i = 1;i<vet1.length;i++) {
+
+			 if(vet1[i]!=vet1[i-1])
+				 tam++;
+		 }
+
+		 int[] vetor = new int[2*tam];
+
 		 int aux1 = 1;
 		 int aux2 = 0;
 		 for(int i = 1;i < vet1.length ;i++){
 
 			 if(i==1 && vet1[0]!=vet1[1] ){
-				 vetor[aux2]=vetor[i];
-				 aux2++;
-				 vetor[aux2]=vetor[aux1];
+				 vetor[aux2]=aux1;
 				 aux2++;
 				 aux1=1;
 
@@ -139,21 +145,30 @@ public class Lista {
 			 if(vet1[i]==vet1[i-1])
 				 aux1++;
 				 
-			 if(i+1==vet1.length-1){
-				 vetor[aux2]=vetor[i];
+			 if(i+1==vet1.length){
+				 vetor[aux2]=vet1[i];
 				 aux2++;
-				 vetor[aux2]=vetor[aux1];
+				 vetor[aux2]=aux1;
 				 aux2++;
 				 aux1=1;
 				 return vetor;
 			 }
 			 if(vet1[i]!=vet1[i+1]){
+				 if(aux2>0) {
 				 vetor[aux2]=vet1[i];
 				 aux2++;
 				 vetor[aux2]=aux1;
 				 aux2++;
 				 aux1=1;
 			  }
+				 else {
+				 vetor[aux2]=vet1[i-1];
+				 aux2++;
+				 vetor[aux2]=aux1;
+				 aux2++;
+				 aux1=1;
+			 }
+			 }
 			  
 			 
 			 }
@@ -206,35 +221,50 @@ public class Lista {
 	 }
 	 
 	 public static int[] Organizacao(int[] vet1){
-		 int[] vetor = new int[vet1.length];
-		 int[] vetor1 = new int[vet1.length];
-		 vetor1 = vet1;
-		 vetor[0]=vet1[0];
 		 int aux=0;
-		 for (int i = 1; i < vetor.length; i++) {
-			for (int j = 1; j < vetor1.length; j++) {
-				if(vetor[aux]==vetor1[j]){
-					aux++;
-					vetor[aux]=vetor1[j];
+		 for (int i = 0; i < vet1.length; i++) {
+
+			for (int j = 0; j < vet1.length; j++) {
+				if(vet1[i]<vet1[j]) {
+					aux=vet1[i];
+					vet1[i]=vet1[j];
+					vet1[j]=aux;
 
 				}
-				if(j==vetor1.length-1 && aux==0){
-					aux++;
-					vetor[aux]=vetor1[1];
 
 				}
 			}
-		}
-	 return vetor;
+		
+	 return vet1;
+	 }
+	 
+	 public static int[] Descompactacao(int[] vet1) {
+		 
+		 int[] vetor = new int[2*vet1.length];
+		 int aux=0;
+		 int aux2=0;
+		 for(int i = 0; i<vet1.length;i+=2) {
+			 if(i==0)
+			 aux=vet1[1];
+			 else
+				 aux=vet1[i+1];
+			 for(int j = 0;j<aux;j++) {
+				 vetor[aux2]=vet1[i];
+				 aux2++;
+			 }
+		 }
+		 
+		 return vetor;
 	 }
 	 
 	 public static void main(String[] args){
 		
-		int[] vet1 = vetorIntAleatorio(10);
+	//	int[] vet1 = vetorIntAleatorio(10);
 	//	int[] vet2 = vetorIntAleatorio(10);
-	//	int[] vetBin = VetorBinario(10);
-		System.out.println(Arrays.toString(vet1));
+		int[] vetBin = VetorBinario(10);
+		System.out.println(Arrays.toString(vetBin));
+		System.out.println(Arrays.toString(Compactacao(vetBin)));
 	//	System.out.println(Arrays.toString(vet2));
-		System.out.println(Arrays.toString(Organizacao(vet1)));
+		System.out.println(Arrays.toString(Descompactacao(Compactacao(vetBin))));
 	}
 }
