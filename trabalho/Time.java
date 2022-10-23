@@ -1,11 +1,9 @@
 package trabalho;
 import java.util.*;
 public class Time {
-	private int id;
 	private String time;
 	private ArrayList<Goleiro> goleiros;
 	public Time(int id,String time) {
-		this.id=id;
 		this.time=time;	
 		this.goleiros= new ArrayList<Goleiro>();
 	}
@@ -15,5 +13,8 @@ public class Time {
 	
 	public ArrayList<Goleiro> getGoleiros(){
 		return goleiros;
+	}
+	public String getTime() {
+		return this.time;
 	}
 }

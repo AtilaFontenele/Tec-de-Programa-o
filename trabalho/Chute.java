@@ -2,7 +2,6 @@ package trabalho;
 
 public class Chute {
 	public static Gol gol = new Gol();
-	private int id;
 	private int forca;
 	private int quadrante;
 	private int posicaox;
@@ -13,7 +12,6 @@ public class Chute {
 		this.forca=forca;
 		this.posicaox=posicaox;
 		this.posicaoy=posicaoy;
-		this.id=id;
 		gol.modificarGol(posicaox,posicaoy,'*');
 	}
 	public int getForca(){
@@ -27,5 +25,8 @@ public class Chute {
 	}
 	public int getPosicaoy(){
 		return posicaoy;
+	}
+	public int getChuteFora() {
+		return 1;
 	}
 }

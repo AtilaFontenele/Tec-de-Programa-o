@@ -10,13 +10,7 @@ public class Main {
 	public static ArrayList<Chute> Tab_Chutes;
 	public static ArrayList<Goleiro>Tab_Goleiros;
 	public static ArrayList<Time> Tab_Times;
-	public static ArrayList<Integer> NumGols ;
-	public static ArrayList<String> ChutesFora;
-	public static ArrayList<String> ChutesGol ;
-	public static ArrayList<String> ChutesTraveEsq ;
-	public static ArrayList<String> ChutesTraveDir ;
-	public static ArrayList<String> ChutesCanto;
-	public static ArrayList<String> ChutesDefesa ;
+	
 	public static void Chutes() {
 		int quant,id,forca,quadr,px,py;
 		File arquivo;
@@ -66,7 +60,7 @@ public class Main {
 				forca=LerArquivo.nextInt();
 				equi=LerArquivo.nextInt();
 			
-			Tab_Goleiros.add(new Goleiro(id,NomeGoleiro1+NomeGoleiro2,vel,flex,agi,coord,forca,equi));
+			Tab_Goleiros.add(new Goleiro(id,NomeGoleiro1+ " " +NomeGoleiro2,vel,flex,agi,coord,forca,equi));
 			}
 		LerArquivo.close();
 	}catch ( FileNotFoundException e ) {
@@ -103,17 +97,28 @@ public class Main {
 		Chutes();
 		Goleiros();
 		Times();
+		Resultados r= new Resultados();
 	
 
 		for (Time t : Tab_Times) {
 			System.out.println("MUDOU DE TIME");
 			for (Goleiro g : t.getGoleiros()) {
 				for(Chute c : Tab_Chutes) {
-					Imprimir.imprimirM(g.AreaDef(g.AAG1(),g.PGoleiroX(c),g.PGoleiroY(c),gol,c));
-					System.out.println(" ");
+					System.out.println("Goleiro: "+g.getNome());
+					System.out.println("Time: "+t.getTime());
+					Imprimir.imprimirM(g.AreaDef(g.AAG(),g.PGoleiroX(c),g.PGoleiroY(c),gol,c));
+					
 					gol.LimparGol();
 				}
+				System.out.println(" ");
+				Imprimir.imprimir(g.getNome(),t.getTime(),g.getId());
+				Imprimir.imprimirResultChutes(r.GolsGav(),r.ChutesF(),r.ChutesTE(),r.ChutesTS(),r.ChutesTD(),Math.round(10*r.Gols()/3),Math.round(10*r.Defs()/3),g.AAG(),r.Gols(),r.Defs());
+				
+				System.out.println("O melhor goleiro do time "+t.getTime()+" e o "+r.getMelhor(g.getNome(),r.Defs(),g.getForca()));
+				
+				r.LimparResultados();
 			}
+			r.LimparMelhor();
 		}
 		
 

@@ -15,10 +15,9 @@ public class Goleiro {
 	private int coordenacao;
 	private int forca;
 	private int equilibrio;
-	private int AAG1;
 	private int numDef;
 	private int numGol;
-	private int aux;
+	Resultados resultados= new Resultados();
 
 	public Goleiro(int id, String nome, int velocidade, int flexibilidade, int agilidade, int coordenacao, int forca,
 			int equilibrio) {
@@ -33,7 +32,7 @@ public class Goleiro {
 		this.numDef = 0;
 	}
 
-	public int AAG1() {
+	public int AAG() {
 		int aag = ((velocidade * 3) + (flexibilidade * 2) + (agilidade * 3) + (coordenacao * 2) + (forca)
 				+ (equilibrio * 2)) / 8;
 		return aag;
@@ -64,7 +63,7 @@ public class Goleiro {
 
 		}
 		if (chute.getQuadrante() == 2) {
-			posicaoy = aleatorio.nextInt(9) + 8;
+			posicaoy = aleatorio.nextInt(9) + 9;
 
 		}
 		if (chute.getQuadrante() == 3) {
@@ -72,164 +71,50 @@ public class Goleiro {
 
 		}
 		if (chute.getQuadrante() == 4) {
-			posicaoy = aleatorio.nextInt(9) + 8;
+			posicaoy = aleatorio.nextInt(9) + 9;
 		}
 		return posicaoy;
 	}
 
 	public char[][] AreaDef(int aag, int x, int y, Gol gol, Chute chute) {
-		int AAG = aag;
-		int x1 = x;
-		int x2 = x;
-		int x3 = x;
-		int x4 = x;
-		int j = 0;
-		gol.modificarGol(chute.getPosicaox(), chute.getPosicaoy(), '*');
-		VerfDef(x, y, gol);
-		gol.modificarGol(x, y, ' ');
-		if (AAG <= 8) {
-			for (int i = 1; i <= 5; i++) {
-				j = j + 1;
-				if (gol.LimQuadr(chute.getQuadrante(), x1, y)) {
-					System.out.println(x1);
-					System.out.println(y + "Teste");
-					x1 = x--;
+		while(aag>1) {
+			int x1=x;
+			for(int j = 0;j<4;j++) {
+				if((aag)<1)
 					continue;
-				}
-				VerfDef(x1, y, gol);
-				gol.modificarGol(x1, y, ' ');
-				x1 = x--;
-
+				if(gol.LimQuadr(chute.getQuadrante(), x1, y) == true) {
+					x1--;
+					aag--;	
+				continue;
+			}else {
+				gol.modificarGol(x1,y,' ');
 			}
-			x1 = y + 1;
-
-			for (int i = 1; i <= (AAG - j); i++) {
-				if (gol.LimQuadr(chute.getQuadrante(), x2, x1)) {
-					System.out.println(x2);
-					System.out.println(x1 + "Teste");
-					x2--;
-					continue;
-				}
-				VerfDef(x2, x1, gol);
-				gol.modificarGol(x2, x1, ' ');
-				x2--;
+				x1--;
+				aag--;
+			
 			}
-		} else if (AAG <= 12) {
-			for (int i = 1; i <= 5; i++) {
-				if (gol.LimQuadr(chute.getQuadrante(), x1, y) == true) {
-					System.out.println(x1);
-					System.out.println(y + "Teste");
-					x1 = x--;
-					continue;
-				}
-				VerfDef(x1, y, gol);
-				gol.modificarGol(x1, y, ' ');
-				x1 = x--;
-
-			}
-			x1 = y + 1;
-
-			j = 4;
-			for (int i = 1; i <= 4; i++) {
-				j = j + 1;
-				if (gol.LimQuadr(chute.getQuadrante(), x2, x1) == true) {
-					System.out.println(x2);
-					System.out.println(x1 + "Teste");
-					x2--;
-					continue;
-				}
-				VerfDef(x2, x1, gol);
-				gol.modificarGol(x2, x1, ' ');
-
-				x2--;
-
-			}
-
-			x1 = y + 2;
-
-			for (int i = 1; i <= (AAG - j); i++) {
-				if (gol.LimQuadr(chute.getQuadrante(), x3, x1) == true) {
-					System.out.println(x3);
-					System.out.println(x1 + "Teste");
-					x3--;
-					continue;
-				}
-				VerfDef(x3, x1, gol);
-				gol.modificarGol(x3, x1, ' ');
-				x3--;
-			}
-		} else {
-
-			for (int i = 1; i <= 5; i++) {
-				if (gol.LimQuadr(chute.getQuadrante(), x1, y) == true) {
-					System.out.println(x1);
-					System.out.println(y + "Teste");
-					x1 = x--;
-					continue;
-				}
-				VerfDef(x1, y, gol);
-				gol.modificarGol(x1, y, ' ');
-				x1 = x--;
-
-			}
-			x1 = y + 1;
-			for (int i = 1; i <= 4; i++) {
-				if (gol.LimQuadr(chute.getQuadrante(), x2, x1) == true) {
-					System.out.println(x2);
-					System.out.println(x1 + "Teste");
-					x2--;
-					continue;
-				}
-				VerfDef(x2, x1, gol);
-				gol.modificarGol(x2, x1, ' ');
-
-				x2--;
-
-			}
-
-			x1 = y + 2;
-
-			j = 8;
-			for (int i = 1; i <= 4; i++) {
-				j = j + 1;
-				if (gol.LimQuadr(chute.getQuadrante(), x3, x1) == true) {
-					System.out.println(x3);
-					System.out.println(x1 + "Teste");
-					x3--;
-					continue;
-				}
-				VerfDef(x3, x1, gol);
-				gol.modificarGol(x3, x1, ' ');
-				x3--;
-			}
-			x1 = y + 3;
-
-			for (int i = 1; i <= (AAG - j); i++) {
-				if (gol.LimQuadr(chute.getQuadrante(), x4, x1) == true) {
-					System.out.println(x4);
-					System.out.println(x1 + "Teste");
-					x4--;
-					continue;
-				}
-				VerfDef(x4, x1, gol);
-				gol.modificarGol(x4, x1, ' ');
-				x4--;
-			}
-
+			y++;
 		}
-
+		resultados.VerfChute(chute.getPosicaox(), chute.getPosicaoy(),gol);
 		return gol.getGol();
 	}
 
-	public void VerfDef(int x, int y, Gol gol) {
+	
+	public int getDef(int def) {
+		return this.numDef+=def;
+	}
+	public int getGol() {
+		return this.numGol;
+	}
 
-		if (gol.getGol()[x][y] == '*')
-			this.numDef++;
-		else
-			aux++;
-		if (aux == AAG1()) {
-			aux = 0;
-			numGol++;
-		}
+	public String getNome() {
+		return this.nome;
+	}
+
+	public int getId() {
+		return this.id;
+	}
+	public int getForca() {
+		return this.forca;
 	}
 }
